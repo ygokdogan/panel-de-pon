@@ -1,0 +1,27 @@
+# macOS / Windows metadata
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Compiled programs and C build artifacts
+/panel-de-pon
+/a.out
+*.o
+*.obj
+*.exe
+*.out
+*.dSYM/
+/build/
+
+# Local editor settings and temporary files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Local secrets
+.env
+.env.*
+!.env.example
