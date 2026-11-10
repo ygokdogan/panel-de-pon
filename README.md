@@ -1,5 +1,7 @@
 # Panel de Pon · C Terminal Game
 
+**Türkçe** | [English](README.en.md)
+
 Panel de Pon mekaniklerinden esinlenen, C ile geliştirilmiş terminal tabanlı bir bulmaca oyunu. Oyuncu hücrelerin yerini değiştirir, aynı sembollerden oluşan dizileri temizler ve tahta üst sınıra ulaşmadan alan açmaya çalışır.
 
 Oyun arayüzü Türkçedir; harici kütüphane gerektirmez.
@@ -59,9 +61,10 @@ Kontrol modunda tahtanın başlangıçta doldurulan alt bölümünü elle girere
 ```text
 .
 ├── panel_de_pon.c  # Oyun döngüsü, tahta ve hamle işlemleri
-├── screenshots/    # Oyun ekran görüntüleri
-├── .gitignore      # Yerel dosyalar ve derleme çıktıları
-└── README.md
+├── screenshots/   # Oyun ekran görüntüleri
+├── .gitignore     # Yerel dosyalar ve derleme çıktıları
+├── README.md      # Türkçe dokümantasyon
+└── README.en.md   # İngilizce dokümantasyon
 ```
 
 ## Teknik notlar ve mevcut sınırlamalar
