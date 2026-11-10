@@ -1,81 +1,81 @@
 # Panel de Pon · C Terminal Game
 
-**Türkçe** | [English](README.en.md)
+[Türkçe](README.tr.md) | **English**
 
-Panel de Pon mekaniklerinden esinlenen, C ile geliştirilmiş terminal tabanlı bir bulmaca oyunu. Oyuncu hücrelerin yerini değiştirir, aynı sembollerden oluşan dizileri temizler ve tahta üst sınıra ulaşmadan alan açmaya çalışır.
+A terminal puzzle game written in C, inspired by the mechanics of Panel de Pon. Players swap cells, clear runs of matching symbols, and make room before the board reaches the top.
 
-Oyun arayüzü Türkçedir; harici kütüphane gerektirmez.
+The game interface is in Turkish. No external libraries are required.
 
-## Oyun mekanikleri
+## Game mechanics
 
-- **Ayarlanabilir tahta:** Her boyutu 1–20 arasında seçilebilen oyun alanı.
-- **Beş sembol:** `*`, `/`, `+`, `%` ve `O`. Nokta (`.`) boş hücreyi gösterir.
-- **İki başlangıç modu:** Rastgele yerleşim veya elle girilen hücrelerle kontrol modu.
-- **Eşleşme temizleme:** Seçilen hücreden sağa veya aşağı uzanan en az üç aynı sembolü patlatma.
-- **Yerçekimi:** Hamle sonrasında boşlukların üzerindeki semboller aşağı düşer.
-- **Yükselen tahta:** Geçerli yer değiştirme hamlesinin ardından alta rastgele bir satır eklenir.
-- **Sayaçlar:** Yer değiştirme sayısı ve toplam patlatılan sembol sayısı ekranda gösterilir.
+- **Configurable board:** Each dimension can be set from 1 to 20.
+- **Five symbols:** `*`, `/`, `+`, `%`, and `O`. A dot (`.`) represents an empty cell.
+- **Two starting modes:** Random initialization or manual input in control mode.
+- **Match clearing:** Clear a run of at least three identical symbols extending right or down from the selected cell.
+- **Gravity:** Symbols fall into empty spaces after a move.
+- **Rising board:** A random row is added at the bottom after a valid swap.
+- **Counters:** The number of swaps and total cleared symbols are displayed.
 
-## Derleme ve çalıştırma
+## Build and run
 
-GCC veya Clang bulunan bir **macOS / Linux** terminalinde proje klasörüne geçip çalıştırın:
+Open a **macOS / Linux** terminal with GCC or Clang installed, navigate to the project directory, and run:
 
 ```sh
 cc -std=c11 -Wall -Wextra panel_de_pon.c -o panel-de-pon
 ./panel-de-pon
 ```
 
-Windows üzerinde WSL kullanılabilir. Kaynak kod `unistd.h` ve `sleep()` kullandığı için doğrudan yerel Windows derlemesi ek uyarlama gerektirir.
+On Windows, use WSL. Native Windows builds require adjustments because the source uses `unistd.h` and `sleep()`.
 
-## Nasıl oynanır?
+## How to play
 
-1. Başlangıçta `1` ile oyun modunu, `2` ile kontrol modunu seçin.
-2. Tahta boyutunu aralarında boşluk bırakarak girin: örneğin `8 6`.
-3. Menüden hamlenizi seçin ve istenen koordinatları girin.
+1. Choose `1` for game mode or `2` for control mode at startup.
+2. Enter the board dimensions separated by a space, such as `8 6`.
+3. Select an action from the menu and enter the requested coordinates.
 
-| Menü | İşlem | Örnek giriş |
+| Menu | Action | Example input |
 | --- | --- | --- |
-| `1` | Hücrelerin yerini değiştir | `7,2 7,3` |
-| `2` | Eşleşen sembolleri patlat | `7,1` |
-| `0` | Oyundan çık | Ek koordinat gerekmez |
+| `1` | Swap two cells | `7,2 7,3` |
+| `2` | Clear matching symbols | `7,1` |
+| `0` | Quit | No coordinates needed |
 
-**Koordinatlar `satır,sütun` biçimindedir ve 1’den başlar.** Girişte parantez kullanmayın; iki hücre için araya boşluk koyun. Satırlar yukarıdan aşağıya, sütunlar soldan sağa numaralandırılır. Amaç, dolu ve yatay ya da dikey komşu iki hücrenin yerini değiştirmektir.
+**Coordinates use the `row,column` format and start at 1.** Do not include parentheses; separate two cell coordinates with a space. Rows are numbered from top to bottom and columns from left to right. Swaps are intended for two occupied cells that are horizontally or vertically adjacent.
 
-Patlama otomatik gerçekleşmez: menüden `2` seçilmelidir. Örneğin bir satırda şu dizi varsa:
+Matches are not cleared automatically: select `2` from the menu. For example, given this row:
 
 ```text
     1 2 3 4 5 6
 7   * * * + O %
 ```
 
-`7,1` koordinatı ilk üç sembolü temizler. Tarama yalnızca **sağa ve aşağı** yapıldığı için dizinin sol veya üst ucunu seçin. Her iki yönde de en az üçlü eşleşme varsa uzun olan temizlenir; eşitlikte yatay dizi seçilir.
+Entering `7,1` clears the first three symbols. Matching scans only **right and down**, so select the leftmost or topmost cell of a run. If both directions contain a match of at least three symbols, the longer run is cleared; ties favor the horizontal run.
 
-Yer değiştirme sonrasında yeni satır tahtayı yukarı iter. Üst satırda bir sembol kaldığında oyun sona erer. Hamle gösterimleri arasında yaklaşık üç saniye bekleme vardır.
+After a swap, a new row pushes the board upward. The game ends when a symbol remains in the top row. There is an approximately three-second delay between move displays.
 
-### Kontrol modu
+### Control mode
 
-Kontrol modunda tahtanın başlangıçta doldurulan alt bölümünü elle girerek belirli eşleşmeleri deneyebilirsiniz. Hücreler en alt satırdan yukarı doğru, her satırda soldan sağa istenir. Bu giriş istemlerindeki indeksler **0 tabanlıdır**; oyun sırasında kullanılan koordinatlar ise **1 tabanlıdır**. Kontrol modunda ara ekranlar temizlenmez; yer değiştirme sonrası eklenen satırlar yine rastgeledir.
+Control mode lets you manually enter the initially occupied lower section of the board to try specific matches. Cells are requested from the bottom row upward, moving left to right within each row. These input prompts use **0-based indices**, while gameplay coordinates are **1-based**. Intermediate displays are not cleared in control mode; rows added after swaps are still random.
 
-## Proje yapısı
+## Project structure
 
 ```text
 .
-├── panel_de_pon.c  # Oyun döngüsü, tahta ve hamle işlemleri
-├── screenshots/   # Oyun ekran görüntüleri
-├── .gitignore     # Yerel dosyalar ve derleme çıktıları
-├── README.md      # Türkçe dokümantasyon
-└── README.en.md   # İngilizce dokümantasyon
+├── panel_de_pon.c  # Game loop, board, and move handling
+├── screenshots/   # Gameplay screenshots
+├── .gitignore     # Local files and build artifacts
+├── README.md      # English documentation
+└── README.tr.md   # Turkish documentation
 ```
 
-## Teknik notlar ve mevcut sınırlamalar
+## Technical notes and current limitations
 
-Tahta iki boyutlu bir karakter dizisinde tutulur. Başlangıç yerleşimi ve yeni satırlar `rand()` ile üretilir; rastgelelik başlangıcı `time(NULL)` ile belirlenir. Oyun akışı `main()`, tahta gösterimi `printBoard()`, satır ekleme `addRandomRow()` ve ekran temizleme `clearScreen()` içinde bulunur.
+The board is stored in a two-dimensional character array. Initial placement and new rows use `rand()`, seeded with `time(NULL)`. The game flow is in `main()`, board rendering in `printBoard()`, row insertion in `addRandomRow()`, and screen clearing in `clearScreen()`.
 
-Bu sürüm temel bir ders projesidir. Kullanırken aşağıdaki sınırlamaları dikkate alın:
+This version is a basic course project. Keep the following limitations in mind:
 
-- Sayısal olmayan veya eksik girişler için sağlam bir giriş doğrulaması bulunmaz.
-- Yer değiştirmede komşuluk veya boş hücre kontrolü hata verse bile takas kodu çalışabilir. Aynı hücrenin iki kez seçilmesi de engellenmez.
-- Patlama işleminde sınır dışı koordinat girilmesi geçersiz bellek erişimine yol açabilir; tahta sınırları içinde kalın.
-- Eşleşmeler tüm tahtada otomatik aranmaz; zincirleme patlama sistemi bulunmaz.
+- Input validation does not robustly handle nonnumeric or incomplete input.
+- The swap code may still execute after an adjacency or empty-cell check reports an error. Selecting the same cell twice is also allowed.
+- Out-of-bounds coordinates during a clearing action may cause invalid memory access; keep coordinates within the board.
+- Matches are not automatically detected across the board, and there is no chain-clearing system.
 
-Kaynak kodun mevcut davranışı korunmuştur. Bu depo, terminal üzerinde dizi işlemleri, kullanıcı girdisi ve temel oyun mantığı çalışmalarını sunar.
+The source code's existing behavior has been preserved. This repository demonstrates array operations, terminal input, and basic game logic.
