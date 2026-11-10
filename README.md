@@ -1,7 +1,5 @@
 # Panel de Pon · C Terminal Game
 
-**Sembolleri değiştir, eşleşmeleri patlat, yükselen tahtada yer aç.**
-
 Panel de Pon mekaniklerinden esinlenen, C ile geliştirilmiş terminal tabanlı bir bulmaca oyunu. Oyuncu hücrelerin yerini değiştirir, aynı sembollerden oluşan dizileri temizler ve tahta üst sınıra ulaşmadan alan açmaya çalışır.
 
 Oyun arayüzü Türkçedir; harici kütüphane gerektirmez.
