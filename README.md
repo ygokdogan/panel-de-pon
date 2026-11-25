@@ -1,12 +1,12 @@
 <div align="center">
 
-# 🧩 Panel de Pon · Terminal Edition
+# Panel de Pon · Terminal Edition
 
 **Swap, match and clear symbols before the board hits the ceiling — right in your terminal.**
 
 [![C11](https://img.shields.io/badge/C-C11-A8B9CC?style=for-the-badge&logo=c&logoColor=white)](https://en.cppreference.com/w/c/11)
-[![No dependencies](https://img.shields.io/badge/dependencies-none-2ea44f?style=for-the-badge)](#-build-and-run)
-[![Platform](https://img.shields.io/badge/macOS%20%7C%20Linux%20%7C%20WSL-terminal-4D4D4D?style=for-the-badge&logo=gnometerminal&logoColor=white)](#-build-and-run)
+[![No dependencies](https://img.shields.io/badge/dependencies-none-2ea44f?style=for-the-badge)](#build-and-run)
+[![Platform](https://img.shields.io/badge/macOS%20%7C%20Linux%20%7C%20WSL-terminal-4D4D4D?style=for-the-badge&logo=gnometerminal&logoColor=white)](#build-and-run)
 
 [Türkçe](README.tr.md) · **English**
 
@@ -21,28 +21,28 @@ A terminal puzzle game written in C, inspired by the mechanics of Panel de Pon. 
 > [!NOTE]
 > The in-game interface is in **Turkish**. No external libraries are required.
 
-## 📑 Contents
+## Contents
 
-- [Game mechanics](#-game-mechanics)
-- [Build and run](#-build-and-run)
-- [How to play](#-how-to-play)
-- [Screenshots](#-screenshots)
-- [Project structure](#-project-structure)
-- [Technical notes and limitations](#-technical-notes-and-current-limitations)
+- [Game mechanics](#game-mechanics)
+- [Build and run](#build-and-run)
+- [How to play](#how-to-play)
+- [Screenshots](#screenshots)
+- [Project structure](#project-structure)
+- [Technical notes and limitations](#technical-notes-and-current-limitations)
 
-## 🎮 Game mechanics
+## Game mechanics
 
-| | Mechanic | Details |
-| :---: | --- | --- |
-| 📐 | **Configurable board** | Each dimension can be set from 1 to 20 |
-| 🔣 | **Five symbols** | `*` `/` `+` `%` `O` — a dot (`.`) is an empty cell |
-| 🎛️ | **Two starting modes** | Random initialization, or manual input in control mode |
-| 💥 | **Match clearing** | Clear a run of ≥ 3 identical symbols extending right or down from the selected cell |
-| ⬇️ | **Gravity** | Symbols fall into empty spaces after a move |
-| ⬆️ | **Rising board** | A random row is added at the bottom after a valid swap |
-| 🔢 | **Counters** | Number of swaps and total cleared symbols are displayed |
+| Mechanic | Details |
+| --- | --- |
+| **Configurable board** | Each dimension can be set from 1 to 20 |
+| **Five symbols** | `*` `/` `+` `%` `O` — a dot (`.`) is an empty cell |
+| **Two starting modes** | Random initialization, or manual input in control mode |
+| **Match clearing** | Clear a run of ≥ 3 identical symbols extending right or down from the selected cell |
+| **Gravity** | Symbols fall into empty spaces after a move |
+| **Rising board** | A random row is added at the bottom after a valid swap |
+| **Counters** | Number of swaps and total cleared symbols are displayed |
 
-## 🚀 Build and run
+## Build and run
 
 Open a **macOS / Linux** terminal with GCC or Clang installed, go to the project directory and run:
 
@@ -54,7 +54,7 @@ cc -std=c11 -Wall -Wextra panel_de_pon.c -o panel-de-pon
 > [!TIP]
 > On Windows, use **WSL**. Native Windows builds need adjustments because the source uses `unistd.h` and `sleep()`.
 
-## 🕹️ How to play
+## How to play
 
 1. Choose `1` for game mode or `2` for control mode at startup.
 2. Enter the board dimensions separated by a space, such as `8 6`.
@@ -81,7 +81,7 @@ entering `7,1` clears the first three symbols. Matching scans only **right and d
 After a swap, a new row pushes the board upward. **The game ends when a symbol remains in the top row.** There is a ~3 second delay between move displays.
 
 <details>
-<summary><b>🎛️ Control mode</b></summary>
+<summary><b>Control mode</b></summary>
 
 <br>
 
@@ -89,7 +89,7 @@ Control mode lets you manually enter the initially occupied lower section of the
 
 </details>
 
-## 📸 Screenshots
+## Screenshots
 
 <table>
   <tr>
@@ -112,7 +112,7 @@ Control mode lets you manually enter the initially occupied lower section of the
 
 </details>
 
-## 📂 Project structure
+## Project structure
 
 ```text
 .
@@ -123,7 +123,7 @@ Control mode lets you manually enter the initially occupied lower section of the
 └── README.tr.md    # Turkish documentation
 ```
 
-## 🔧 Technical notes and current limitations
+## Technical notes and current limitations
 
 The board is stored in a two-dimensional character array. Initial placement and new rows use `rand()`, seeded with `time(NULL)`.
 
@@ -136,10 +136,10 @@ The board is stored in a two-dimensional character array. Initial placement and 
 
 This version is a basic course project. Keep in mind:
 
-- ⚠️ Input validation does not robustly handle nonnumeric or incomplete input.
-- ⚠️ The swap code may still execute after an adjacency or empty-cell check reports an error. Selecting the same cell twice is also allowed.
-- ⚠️ Out-of-bounds coordinates during a clearing action may cause invalid memory access; keep coordinates within the board.
-- ⚠️ Matches are not automatically detected across the board, and there is no chain-clearing system.
+- Input validation does not robustly handle nonnumeric or incomplete input.
+- The swap code may still execute after an adjacency or empty-cell check reports an error. Selecting the same cell twice is also allowed.
+- Out-of-bounds coordinates during a clearing action may cause invalid memory access; keep coordinates within the board.
+- Matches are not automatically detected across the board, and there is no chain-clearing system.
 
 The source code's existing behavior has been preserved. This repository demonstrates array operations, terminal input, and basic game logic.
 
